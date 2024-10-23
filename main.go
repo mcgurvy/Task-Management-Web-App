@@ -1,6 +1,10 @@
 package main
 
 import (
+	"github.com/gorilla/handlers"
+)
+
+import (
 	"database/sql"
 	"encoding/json"
 	"log"
@@ -36,6 +40,7 @@ func main() {
 	http.Handle("/", r)
 	log.Println("Server running on port 8080")
 	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedOrigins([]string{"http://localhost:3000"}))(r))
 }
 
 func createTable() {
